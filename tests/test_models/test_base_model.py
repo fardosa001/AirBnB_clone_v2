@@ -12,10 +12,8 @@ import os
     os.getenv("HBNB_TYPE_STORAGE") == "db",
     "Test not of relevance"
 )
-
 class test_basemodel(unittest.TestCase):
     """ """
-
     def __init__(self, *args, **kwargs):
         """ """
         super().__init__(*args, **kwargs)
@@ -29,7 +27,7 @@ class test_basemodel(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     def test_default(self):
