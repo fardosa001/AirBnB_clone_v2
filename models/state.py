@@ -1,21 +1,19 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
 from models.base_model import BaseModel, Base
-import models
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+from models.city import City
 from os import getenv
+from models import storage_type
 
 
 class State(BaseModel, Base):
     """ State class inherits from Basemodel and Base"""
-    __tablename__ = 'states'
-
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
+    if storage_type == "db":
+        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state",
-                              cascade="all, delete-orphan")
-
+        cities = relationship("City", cascade="all,delete", backref="state")
     else:
         name = ""
 
@@ -26,8 +24,9 @@ class State(BaseModel, Base):
         relationship between State and City
         """
 
-        cities = []
-        for city in models.storage.all("City").values():
+        citiesList = []
+        citiesAll = storage.all(City)
+        for city in citiesAll.values():
             if city.state_id == self.id:
-                cities.append(city)
-        return cities
+                citiesList.append(city)
+        return citiesList

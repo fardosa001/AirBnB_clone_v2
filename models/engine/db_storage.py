@@ -29,6 +29,7 @@ class DBStorage:
 
     def all(self, cls=None):
         """query on the current database session"""
+        allClasses = [User, Place, State, City, Amenity, Review]
         result = {}
         if cls:
             query_result = self.__session.query(cls)
@@ -36,7 +37,7 @@ class DBStorage:
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 result[key] = obj
         else:
-            for model_class in [State, City]:
+            for model_class in allClasses:
                 query_result = self.__session.query(model_class)
                 for obj in query_result:
                     key = "{}.{}".format(obj.__class__.__name__, obj.id)
