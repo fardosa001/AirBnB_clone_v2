@@ -30,23 +30,23 @@ place_amenity = Table(
 
 
 class Place(BaseModel, Base):
-    """ A place to stay """
+    """A place to stay"""
 
-    __tablename__ = "place"
+    __tablename__ = "places"
     if storage_type == "db":
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
-        user_id = Column(String(60), Foreignkey("users.id"), nullable=False)
+        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name = Column(String(128), nullable=False)
         description = Column(String(1024), nullable=True)
-        number_rooms = Column(String(Integer, nullable=False, default=0)
+        number_rooms = Column(Integer, nullable=False, default=0)
         number_bathrooms = Column(Integer, nullable=False, default=0)
         max_guest = Column(Integer, nullable=False, default=0)
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         amenities = relationship("Amenity", secondary=place_amenity,
-                                viewonly=False,
-                                back_populates="place_amenities")
+                                 viewonly=False,
+                                 back_populates="place_amenities")
         reviews = relationship('Review', cascade="all,delete", backref="place")
 
     else:
@@ -59,12 +59,12 @@ class Place(BaseModel, Base):
         max_guest = 0
         price_by_night = 0
         latitude = 0.0
-        longtitude = 0.0
+        longitude = 0.0
         amenity_ids = []
 
         @property
         def amenities(self):
-            """Getter method"""
+            """Getter docuemnt"""
             from models import storage
             amenitiesList = []
             amenitiesAll = storage.all(Amenity)
