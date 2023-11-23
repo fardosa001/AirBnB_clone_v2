@@ -3,11 +3,9 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
-from models.amenity import Amenity
 from models.review import Review
 from os import getenv
 
-storage_type = getenv("HBNB_TYPE_STORAGE")
 
 place_amenity = Table(
     "place_amenity",
@@ -33,7 +31,7 @@ class Place(BaseModel, Base):
     """A place to stay"""
 
     __tablename__ = "places"
-    if storage_type == "db":
+    if getenv("HBNB_TYPE_STORAGE") == "db":
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name = Column(String(128), nullable=False)

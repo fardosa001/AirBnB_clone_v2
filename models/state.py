@@ -5,13 +5,14 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.city import City
 from os import getenv
-from models import storage_type
+import models
 
 
 class State(BaseModel, Base):
     """ State class inherits from Basemodel and Base"""
-    if storage_type == "db":
-        __tablename__ = 'states'
+    __tablename__ = 'states'
+        
+    if getenv('HBNB_TYPE_STORAGE') == "db":
         name = Column(String(128), nullable=False)
         cities = relationship("City", cascade="all,delete", backref="state")
     else:
