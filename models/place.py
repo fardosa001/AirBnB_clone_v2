@@ -35,10 +35,10 @@ class Place(BaseModel, Base):
     __tablename__ = "place"
     if storage_type == "db":
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
-        user_id = Column(String(60), Foreignkey("users.id"), nullable=False)
+        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name = Column(String(128), nullable=False)
         description = Column(String(1024), nullable=True)
-        number_rooms = Column(String(Integer, nullable=False, default=0)
+        number_rooms = Column(Integer, nullable=False, default=0)
         number_bathrooms = Column(Integer, nullable=False, default=0)
         max_guest = Column(Integer, nullable=False, default=0)
         price_by_night = Column(Integer, nullable=False, default=0)
@@ -59,7 +59,7 @@ class Place(BaseModel, Base):
         max_guest = 0
         price_by_night = 0
         latitude = 0.0
-        longtitude = 0.0
+        longitude = 0.0
         amenity_ids = []
 
         @property
@@ -80,12 +80,12 @@ class Place(BaseModel, Base):
             reviewsList = []
             reviewsAll = storage.all(Review)
             for review in reviewsAll.values():
-                if review.place_id in self.id:
+                if review.place_id == self.id:
                     reviewsList.append(review)
             return reviewsList
 
         @amenities.setter
         def amenities(self, amenity):
             """Setter method"""
-            if isinstance(amenity, Amenity):
+            if isinstance(amenity, Amenity) and amenity.id not in self.amenity_ids:
                 self.amenity_ids.append(amenity.id)

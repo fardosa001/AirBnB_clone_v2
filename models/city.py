@@ -5,6 +5,7 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 import models
 from os import getenv
+from sqlalchemy.orm import relationship
 
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
