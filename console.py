@@ -83,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
-        _cmd = _cls = _id = _args = ""  # initialize line elements
+        _cmd = _cls = _id = _args = ""  # initialize line elements.
 
         # scan for general formating - i.e '.', '(', ')'
         if not ("." in line and "(" in line and ")" in line):
@@ -353,7 +353,7 @@ class HBNBCommand(cmd.Cmd):
                 args.append(v)
         else:  # isolate args
             args = args[2]
-            if args and args[0] == '"':
+            if args and args[0] == '"':  
                 # check for quoted arg
                 second_quote = args.find('"', 1)
                 att_name = args[1:second_quote]
