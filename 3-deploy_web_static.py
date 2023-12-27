@@ -18,9 +18,9 @@ def do_pack():
     try:
         if isdir("versions") is False:
             local("mkdir -p versions")
-        archive_path = "versions/web_static_{}.tgz".format(timestamp)
+        filname = "versions/web_static_{}.tgz".format(timestamp)
         local("tar -cvzf {}  web_static".format(filename))
-        return archive_path
+        return filename
     except Exception:
         return None
 
@@ -29,8 +29,6 @@ def do_deploy(archive_path):
     """
     deploys an archive to web servers.
     """
-
-    archive_path = do_pack()
 
     if archive_path is None:
         return False
@@ -61,9 +59,11 @@ def do_deploy(archive_path):
 
 def deploy():
     """
-    creates & distributes an archive.
+    creates & distributes an archive to web servers.
     """
+    
     archive_path = do_pack()
+    
     if archive_path is None:
         return False
-    return do_deploy(archive_pack)
+    return do_deploy(archive_path)
