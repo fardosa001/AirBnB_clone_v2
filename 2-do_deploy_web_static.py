@@ -7,9 +7,10 @@ from fabric.api import env, put, run
 import os.path
 env.hosts = ["34.202.233.237", "100.25.109.68"]
 
+
 def do_deploy(archive_path):
     """
-    deploys an archive to web servers. 
+    deploys an archive to web servers.
     """
 
     if archive_path is None:
