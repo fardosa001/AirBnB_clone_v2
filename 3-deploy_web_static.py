@@ -18,7 +18,7 @@ def do_pack():
     try:
         if isdir("versions") is False:
             local("mkdir -p versions")
-        filname = "versions/web_static_{}.tgz".format(timestamp)
+        filename = "versions/web_static_{}.tgz".format(timestamp)
         local("tar -cvzf {}  web_static".format(filename))
         return filename
     except Exception:
