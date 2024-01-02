@@ -45,7 +45,7 @@ class DBStorage:
                 for obj in query_result:
                     key = "{}.{}".format(obj.__class__.__name__, obj.id)
                     result[key] = obj
-            return result
+        return result
 
     def new(self, obj):
         """add the object to the current database session"""
