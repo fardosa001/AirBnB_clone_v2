@@ -76,9 +76,16 @@ def cities_by_states():
     return render_template('8-cities_by_states.html', states=states)
 
 
+@app.route('/states', strict_slashes=False)
+def states():
+    """display html of all states"""
+    states = storage.all(State).values()
+    return render_template('7-states_list.html', states=states)
+
+
 @app.route('/states/<id>', strict_slashes=False)
 def state_details(id):
-    """display html page"""
+    """display html page of a state and their cities"""
     states = storage.all(State).values()
     for state in states:
         if id == state.id:
